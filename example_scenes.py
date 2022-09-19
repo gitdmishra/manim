@@ -9,6 +9,133 @@ import numpy as np
 # Use -n <number> to skip ahead to the n'th animation of a scene.
 
 
+class SumOne(Scene):
+    def construct(self):
+        self.WAIT_TIME = 3
+        intro_words = Text(""" 
+            When we add 1 to a number, we go forward 1 step
+
+        """, color = ORANGE)
+        intro_words.to_edge(UP)
+
+        self.play(Write(intro_words))
+        self.wait(self.WAIT_TIME)
+
+        self.addOne(2)
+        self.addOne(6)
+        self.addOne(12)
+        self.addOne(111)
+
+
+    def addOne(self, num):
+
+        # ##########################
+
+        example = Text(f'What is {num} + 1 = ?',
+        font="sans-serif",
+        font_size = 40
+
+        )
+        example.to_edge(UP*3)
+
+        text1 = Text(f'Start from {num} and take 1 step forward',
+                font_size = 40)
+
+        text1.next_to(example, DOWN*4)
+
+        # low, high = 0, 10
+        # if num>10:
+        #     low, high = 10, 20
+
+        low = (num//10)*10
+        high = low +10
+
+        numLine = NumberLine(
+            x_range=[low, high, 1],
+            length=10,
+            color=BLUE,
+            include_numbers=True,
+            label_direction=UP,
+            )
+
+        numLine.next_to(text1, DOWN*6)
+
+
+        arc_between_8_9 = ArcBetweenPoints(
+                start=numLine.number_to_point(num), 
+                end = numLine.number_to_point(num+1),
+                stroke_color = ORANGE)
+
+        ans_circle = Circle(radius=0.2)
+        ans_circle.move_to(numLine.number_to_point(num+1))
+
+        ans = Text(f'{num} + 1 = {num + 1}')
+
+        ans.next_to(numLine, DOWN*4)
+
+        self.play(Write(example))
+        self.wait(self.WAIT_TIME)
+        self.play(Write(text1))
+        self.wait(self.WAIT_TIME)
+        self.play(ShowCreation(numLine))
+
+        # self.add(dot, arc)
+    
+        # self.play(MoveAlongPath(dot, arc), rate_func=linear)
+
+        self.play(ShowCreation(arc_between_8_9))
+        self.wait(self.WAIT_TIME)
+        self.play(ShowCreation(ans_circle))
+        self.wait(self.WAIT_TIME)
+        self.play(Write(ans))
+        self.wait(self.WAIT_TIME)
+        self.clear()
+
+class HowFar(Scene):
+
+    def construct(self):
+
+        intro_words = Text(""" How far is 10 from 8""")
+
+        num_line = NumberLine(x_range=[0,10,1],
+                color = BLUE,
+                include_numbers = True,
+                label_direction = UP
+            )
+
+        self.play(Write(intro_words))
+
+class MoreAndLess(Scene):
+
+    def construct(self):
+
+        intro_words = Text(""" 
+
+                        As we move along the number line, numbers get bigger and bigger
+
+                    """)
+        intro_words.to_edge(UP)
+
+        num_line = NumberLine(
+                x_range = [0,10,1],
+                length = 20,
+                color = BLUE,
+                include_numbers = True,
+                label_direction =UP
+            )
+        # num_line.next_to(intro_words, DOWN*2)
+
+        dot = Dot(color=ORANGE)
+        # dot.next_to(num_line, UP)
+        dot.next_to(num_line.number_to_point(4), UP)
+        dot_group = VGroup()
+        dot_group.add(*[Dot(color=ORANGE, point = UP*i//2) for i in range(5)])
+
+        self.play(Write(intro_words))
+        self.play(ShowCreation(num_line))
+        self.play(ShowCreation(dot_group))
+
+
 class OpeningManimExample(Scene):
     def construct(self):
         intro_words = Text("""
