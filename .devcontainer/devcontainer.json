@@ -16,6 +16,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "pip3 install --user -r requirements.txt"
+	// "postCreateCommand": "sudo apt update && sudo apt install build-essential python3-dev libcairo2-dev libpango1.0-dev ffmpeg && sudo apt install python3-pip && pip3 install manim"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
