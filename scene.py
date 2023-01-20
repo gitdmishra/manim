@@ -775,6 +775,10 @@ class NumPlaces(Scene):
         ans_ones = Text(num2, font_size = 30).next_to(question_ones, DOWN)
         self.play(Write(ans_ones))
 
+class newClass(Scene):
+    def constructor(self):
+        pass
+
 
 
 
