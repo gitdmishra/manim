@@ -105,6 +105,12 @@ class HowFar(Scene):
 
         self.play(Write(intro_words))
 
+class UnitAndTenPlaces(Scene):
+
+    def construct(self):
+        self.play(Write("25"))
+
+
 class MoreAndLess(Scene):
 
     def construct(self):

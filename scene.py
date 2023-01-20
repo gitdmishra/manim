@@ -267,17 +267,26 @@ class HowFar(Scene):
 class SumOne(Scene):
     def construct(self):
         self.WAIT_TIME = 3
-        intro_words = Text(""" 
-            When we add 1 to a number, we go forward 1 step
+        to_num = 5
+        add_num = 1
+        FONT_SIZE_TITLE = 40
+        # FONT_SIZE_TEXT = 30
 
-        """, color = ORANGE)
-        intro_words.to_edge(UP)
+        intro_words = Tex("What do we get when we add ", f'{add_num}'," to ", f'{to_num}', font_size=FONT_SIZE_TITLE)
+        intro_words.set_color_by_tex_to_color_map({
+            f'{to_num}': BLUE,
+            f'{add_num}': ORANGE,
+            # "C": GREEN,
+        })
+
+        intro_words.to_edge(UP*2)
 
         self.play(Write(intro_words))
         self.wait(self.WAIT_TIME)
 
-        self.addOne(2)
-        self.addOne(6)
+
+        self.addOne(5)
+        self.addOne(8)
         self.addOne(12)
         self.addOne(111)
 
@@ -285,18 +294,33 @@ class SumOne(Scene):
     def addOne(self, num):
 
         # ##########################
+        FONT_SIZE_TEXT = 30
+        add_num = 1
+        example = Tex("What is ",f'{num}'," + ",f'{add_num}', " = ?", font_size = FONT_SIZE_TEXT)
+        example.set_color_by_tex_to_color_map({
+            f'{num}': BLUE,
+            f'{add_num}': ORANGE,
+            # "C": GREEN,
+        })
+        example.to_edge(UP*4)
 
-        example = Text(f'What is {num} + 1 = ?',
-        font="sans-serif",
-        font_size = 40
+        step1 = Tex("Step 1: Start from ", f'{num}', font_size=FONT_SIZE_TEXT).next_to(example, DOWN*2)
+        step1.set_color_by_tex_to_color_map({
+            f'{num}': BLUE,
+            # "C": GREEN,
+        })
 
-        )
-        example.to_edge(UP*3)
+        step2 = Tex("Step 2: Take ", f'{add_num}', " step", font_size=FONT_SIZE_TEXT).next_to(step1, DOWN)
+        step2.set_color_by_tex_to_color_map({
+            f'{add_num}': ORANGE,
+            # "C": GREEN,
+        })
 
-        text1 = Text(f'Start from {num} and take 1 step forward',
-                font_size = 40)
 
-        text1.next_to(example, DOWN*4)
+        # text1 = Text(f'Start from {num} and take 1 step forward',
+        #         font_size = FONT_SIZE_TEXT)
+        #
+        # text1.next_to(example, DOWN*4)
 
         # low, high = 0, 10
         # if num>10:
@@ -307,13 +331,17 @@ class SumOne(Scene):
 
         numLine = NumberLine(
             x_range=[low, high, 1],
-            length=10,
+            length=12,
             color=BLUE,
             include_numbers=True,
             label_direction=UP,
+            font_size = 20
             )
 
-        numLine.next_to(text1, DOWN*6)
+        numLine.shift(DOWN)
+        from_num = numLine.number_to_point(num)
+        from_circle = Circle(radius=0.15)
+        from_circle.move_to(from_num)
 
 
         arc_between_8_9 = ArcBetweenPoints(
@@ -321,25 +349,31 @@ class SumOne(Scene):
                 end = numLine.number_to_point(num+1),
                 stroke_color = ORANGE)
 
-        ans_circle = Circle(radius=0.2)
+        ans_circle = Circle(radius=0.15)
         ans_circle.move_to(numLine.number_to_point(num+1))
 
-        ans = Text(f'{num} + 1 = {num + 1}')
+        ans = Text(f'{num} + 1 = {num + 1}', font_size = FONT_SIZE_TEXT)
 
-        ans.next_to(numLine, DOWN*4)
+        ans.next_to(numLine, DOWN*2)
 
         self.play(Write(example))
         self.wait(self.WAIT_TIME)
-        self.play(Write(text1))
+        self.play(Create(step1))
         self.wait(self.WAIT_TIME)
+        self.play(Create(step2))
+        self.wait(self.WAIT_TIME)
+        # self.play(Write(text1))
+        # self.wait(self.WAIT_TIME)
         self.play(Create(numLine))
-
+        # self.play(Wiggle(from_num))
+        self.play(Create(from_circle))
         # self.add(dot, arc)
     
         # self.play(MoveAlongPath(dot, arc), rate_func=linear)
 
         self.play(Create(arc_between_8_9))
         self.wait(self.WAIT_TIME)
+        self.play(Create(Text("+1", font_size=15).next_to(arc_between_8_9, DOWN)))
         self.play(Create(ans_circle))
         self.wait(self.WAIT_TIME)
         self.play(Write(ans))
@@ -486,7 +520,7 @@ class TenCompliment(Scene):
 
 class MatrixGetColumnsExample(Scene):
     
-    def construct(self):
+     def construct(self):
         # temp = Matrix([[3,2]])
         m0 = Matrix([[0,0,"..",0,1,0,"..",0]], h_buff=0.5)
         m0.move_to(RIGHT * 4)
@@ -585,5 +619,174 @@ class MatrixGetColumnsExample(Scene):
         # m0_t.shift(UP*2)
         # m0_t.add(SurroundingRectangle(m0_t.get_columns()[4]))
         # self.add(m0_t)
+
+
+class NumPlaces(Scene):
+
+    def construct(self):
+
+        ####### SCENE 1 #########
+
+        self.play(Write(Text("Title: Five Family", font_size = 70, color = BLUE)))
+        self.wait(2)
+        self.clear()
+        story_txt_1 = Text("Once upon a time there was a boy.", font_size = 25, color = ORANGE)
+        story_txt_2 = Text("On his first day of school, his teacher asked him his name.", font_size = 25, color = ORANGE)
+        story_txt_3 = Text("'My name is Twenty Five.' He said.",font_size = 25, color = ORANGE)
+        story_txt_4 = Text("'That's an excellent name', Teacher said.",font_size = 25, color = ORANGE)
+        story_txt_5 = Text("Yes, everybody says so. My First name is Twenty and Last name is Five.",font_size = 25, color = ORANGE)
+        story_txt_6 = Text("My Dad's name is Thirty Five and Grand Dad's name is Forty Five. We are from Five Family.",font_size = 25, color = ORANGE)
+
+        self.add(story_txt_1, story_txt_2, story_txt_3, story_txt_4, story_txt_5, story_txt_6)
+
+        for i,mobj in enumerate(self.mobjects):
+            mobj.shift(DOWN*(i-3))
+
+        # for idx, text in enumerate([story_txt_1, story_txt_2, story_txt_3, story_txt_4, story_txt_5, story_txt_6]):
+        #     self.play(Write(Text(text, font_size = 25, color = ORANGE).move_to(UP * (3-idx))), run_time =5)
+
+
+        # num1_txt = Text("2", font_size = 70, color=BLUE).move_to(DOWN*3)
+        # num2_txt = Text("5", font_size = 70, color=BLUE).next_to(num1_txt, RIGHT * 0.8)
+        # self.add(num1_txt)
+        # self.add(num2_txt)
+        # self.play(Write(num1_txt), Write(num2_txt))
+
+        self.wait(10)
+        self.clear()
+
+        ####### SCENE 2 #########
+        f_name_dad = "3"
+        f_name_boy = "2"
+        f_name_grand_dad = "4"
+        l_name = '5'
+
+        f_name_dad_txt = Text("3", font_size = 30, color=BLUE)
+        f_name_boy_txt = Text("2", font_size = 30, color=BLUE)
+        f_name_grand_dad_txt = Text("4", font_size = 30, color=BLUE)
+        l_name_txt = Text('5',font_size = 30, color=BLUE)
+
+        self.add(Text("Five Family").shift(UP*3))
+        self.add(Text("On Number Line", font_size=30, color=ORANGE).shift(UP*2))
+
+        boy_group = VGroup()
+        boy_group.add(f_name_boy_txt, l_name_txt.next_to(f_name_boy_txt, RIGHT*0.4),Text("Boy",font_size = 20, color=ORANGE).next_to(f_name_boy_txt, DOWN).shift(RIGHT*.2), )
+
+        self.play(boy_group.animate.shift(LEFT*4))
+
+
+        dad_group = VGroup()
+        dad_group.add(f_name_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_dad_txt, RIGHT*0.4),Text("Dad",font_size = 20, color=ORANGE).next_to(f_name_dad_txt, DOWN).shift(RIGHT*.2), )
+
+        self.add(dad_group)
+
+        grand_dad_group = VGroup()
+        grand_dad_group.add(f_name_grand_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_grand_dad_txt, RIGHT*0.4),Text("Grand Dad",font_size = 20, color=ORANGE).next_to(f_name_grand_dad_txt, DOWN).shift(RIGHT*.2), )
+
+        self.play(grand_dad_group.animate.shift(RIGHT*4))
+
+        family_group = VGroup()
+        family_group.add(boy_group, dad_group, grand_dad_group)
+
+
+        self.play(family_group.animate.shift(UP))
+
+        numLine = NumberLine(
+            x_range=[20, 50, 5],
+            length=12,
+            color=BLUE,
+            include_numbers=True,
+            label_direction=DOWN,
+            )
+
+        self.add(numLine)
+        self.play(boy_group.animate.next_to(numLine.number_to_point(25), UP))
+        self.play(dad_group.animate.next_to(numLine.number_to_point(35), UP))
+        self.play(grand_dad_group.animate.next_to(numLine.number_to_point(45), UP))
+
+        # boy = Text("25", font_size = 30, color=BLUE).next_to(dad, LEFT)
+        # grand_dad = Text("45", font_size = 30, color=BLUE).next_to(dad, RIGHT)
+
+
+        # TEXT_FONT_SIZE = 30
+        # NUM_FONT_SIZE = 100
+        # num1 = "2"
+        # num2 = "5"
+        # num1_txt = Text(num1, font_size = NUM_FONT_SIZE)
+        # num2_txt = Text(num2, font_size = NUM_FONT_SIZE).shift(RIGHT*0.8)
+        # self.add(num1_txt)
+        # self.add(num2_txt)
+        # self.play(num1_txt.animate.shift(LEFT), num2_txt.animate.shift(RIGHT))
+
+        # ten_place = Text("First Name", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num1_txt, DOWN)
+        # self.play(Write(ten_place))
+
+        # unit_place = Text("Last Name", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num2_txt, DOWN)
+        # self.play(Write(unit_place))
+
+        
+        # self.play(Write(Text("Now it's your turn. Can you tell me what's your first and last name?", font_size = 40, color = BLUE).next_to(unit_place, DOWN)))
+
+        self.wait(5)
+        self.clear()
+
+        ####### SCENE 3 #########
+        
+        TEXT_FONT_SIZE = 30
+        NUM_FONT_SIZE = 100
+        num1 = "2"
+        num2 = "5"
+        num1_txt = Text(num1, font_size = NUM_FONT_SIZE)
+        num2_txt = Text(num2, font_size = NUM_FONT_SIZE).shift(RIGHT*0.8)
+        self.add(num1_txt)
+        self.add(num2_txt)
+        self.play(num1_txt.animate.shift(LEFT), num2_txt.animate.shift(RIGHT))
+
+        l_name_txt = Text('Last Name',font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num2_txt, UP)
+        self.add(l_name_txt)
+        unit_place = Text("unit place", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num2_txt, DOWN)
+        self.play(Write(unit_place))
+
+        f_name_txt = Text('First Name', font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num1_txt, UP)
+        self.add(f_name_txt)
+        ten_place = Text("tenth place", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num1_txt, DOWN)
+        self.play(Write(ten_place))
+
+        ones = Text("1's", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(unit_place, DOWN)
+        self.play(Write(ones))
+
+        tens = Text("10's", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(ten_place, DOWN)
+        self.play(Write(tens))
+
+        vertical_line = DashedLine(start = [0, 1.5, 0], end = [0, -1.5, 0], color=BLUE).shift(RIGHT*0.4).shift(DOWN*0.2)
+        self.add(vertical_line)
+
+        group = VGroup()
+        group.add(l_name_txt, f_name_txt, num1_txt, num2_txt, unit_place, ten_place, ones, tens, vertical_line)
+        self.play(group.animate.shift(UP*2))
+
+        question_tens = Text("How many 10's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).shift(DOWN)
+        self.play(Write(question_tens))
+        ans_tens = Text(num1, font_size = 30).next_to(question_tens, DOWN)
+        self.play(Write(ans_tens))
+
+        question_ones = Text("How many 1's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).next_to(ans_tens, DOWN)
+        self.play(Write(question_ones))
+        ans_ones = Text(num2, font_size = 30).next_to(question_ones, DOWN)
+        self.play(Write(ans_ones))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
