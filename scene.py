@@ -670,18 +670,18 @@ class NumPlaces(Scene):
         self.add(Text("On Number Line", font_size=30, color=ORANGE).shift(UP*2))
 
         boy_group = VGroup()
-        boy_group.add(f_name_boy_txt, l_name_txt.next_to(f_name_boy_txt, RIGHT*0.4),Text("Boy",font_size = 20, color=ORANGE).next_to(f_name_boy_txt, DOWN).shift(RIGHT*.2), )
+        boy_group.add(f_name_boy_txt, l_name_txt.next_to(f_name_boy_txt, RIGHT*0.2),Text("Boy",font_size = 20, color=ORANGE).next_to(f_name_boy_txt, DOWN).shift(RIGHT*.15), )
 
         self.play(boy_group.animate.shift(LEFT*4))
 
 
         dad_group = VGroup()
-        dad_group.add(f_name_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_dad_txt, RIGHT*0.4),Text("Dad",font_size = 20, color=ORANGE).next_to(f_name_dad_txt, DOWN).shift(RIGHT*.2), )
+        dad_group.add(f_name_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_dad_txt, RIGHT*0.2),Text("Dad",font_size = 20, color=ORANGE).next_to(f_name_dad_txt, DOWN).shift(RIGHT*.15), )
 
         self.add(dad_group)
 
         grand_dad_group = VGroup()
-        grand_dad_group.add(f_name_grand_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_grand_dad_txt, RIGHT*0.4),Text("Grand Dad",font_size = 20, color=ORANGE).next_to(f_name_grand_dad_txt, DOWN).shift(RIGHT*.2), )
+        grand_dad_group.add(f_name_grand_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_grand_dad_txt, RIGHT*0.2),Text("Grand Dad",font_size = 20, color=ORANGE).next_to(f_name_grand_dad_txt, DOWN).shift(RIGHT*.15), )
 
         self.play(grand_dad_group.animate.shift(RIGHT*4))
 
@@ -698,11 +698,34 @@ class NumPlaces(Scene):
             include_numbers=True,
             label_direction=DOWN,
             )
+        
 
         self.add(numLine)
+
+        twenty = Text("Twenty", font_size = 20, color = ORANGE)
+        five = Text("Five", font_size = 20, color = BLUE).next_to(twenty, RIGHT*.5).shift(UP*0.03)
+        twenty_five = VGroup()
+        twenty_five.add(twenty, five)
+
         self.play(boy_group.animate.next_to(numLine.number_to_point(25), UP))
+        self.play(twenty_five.animate.next_to(numLine.number_to_point(25), DOWN*4))
+
+        thirty = Text("Thirty", font_size = 20, color = ORANGE)
+        five = Text("Five", font_size = 20, color = BLUE).next_to(thirty, RIGHT*.5).shift(UP*0.03)
+        thirty_five = VGroup()
+        thirty_five.add(thirty, five)
+
         self.play(dad_group.animate.next_to(numLine.number_to_point(35), UP))
+        self.play(thirty_five.animate.next_to(numLine.number_to_point(35), DOWN*4))
+
+        fourty = Text("Fourty", font_size = 20, color = ORANGE)
+        five = Text("Five", font_size = 20, color = BLUE).next_to(fourty, RIGHT*.5).shift(UP*0.03)
+        fourty_five = VGroup()
+        fourty_five.add(fourty, five)
+
         self.play(grand_dad_group.animate.next_to(numLine.number_to_point(45), UP))
+        self.play(fourty_five.animate.next_to(numLine.number_to_point(45), DOWN*4))
+
 
         # boy = Text("25", font_size = 30, color=BLUE).next_to(dad, LEFT)
         # grand_dad = Text("45", font_size = 30, color=BLUE).next_to(dad, RIGHT)
@@ -731,13 +754,59 @@ class NumPlaces(Scene):
         self.clear()
 
         ####### SCENE 3 #########
-        
+
+        self.scene3("3", "5")
+        # TEXT_FONT_SIZE = 30
+        # NUM_FONT_SIZE = 100
+        # num1 = "2"
+        # num2 = "5"
+        # num1_txt = Text(num1, font_size = NUM_FONT_SIZE)
+        # num2_txt = Text(num2, font_size = NUM_FONT_SIZE).shift(RIGHT*0.8)
+        # self.add(num1_txt)
+        # self.add(num2_txt)
+        # self.play(num1_txt.animate.shift(LEFT), num2_txt.animate.shift(RIGHT))
+
+        # l_name_txt = Text('Last Name',font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num2_txt, UP)
+        # self.add(l_name_txt)
+        # unit_place = Text("unit place", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num2_txt, DOWN)
+        # self.play(Write(unit_place))
+
+        # f_name_txt = Text('First Name', font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num1_txt, UP)
+        # self.add(f_name_txt)
+        # ten_place = Text("tenth place", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(num1_txt, DOWN)
+        # self.play(Write(ten_place))
+
+        # ones = Text("1's", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(unit_place, DOWN)
+        # self.play(Write(ones))
+
+        # tens = Text("10's", font_size =  TEXT_FONT_SIZE, color = ORANGE).next_to(ten_place, DOWN)
+        # self.play(Write(tens))
+
+        # vertical_line = DashedLine(start = [0, 1.5, 0], end = [0, -1.5, 0], color=BLUE).shift(RIGHT*0.4).shift(DOWN*0.2)
+        # self.add(vertical_line)
+
+        # group = VGroup()
+        # group.add(l_name_txt, f_name_txt, num1_txt, num2_txt, unit_place, ten_place, ones, tens, vertical_line)
+        # self.play(group.animate.shift(UP*2))
+
+        # question_tens = Text("How many 10's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).shift(DOWN)
+        # self.play(Write(question_tens))
+        # ans_tens = Text(num1, font_size = 30).next_to(question_tens, DOWN)
+        # self.play(Write(ans_tens))
+
+        # question_ones = Text("How many 1's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).next_to(ans_tens, DOWN)
+        # self.play(Write(question_ones))
+        # ans_ones = Text(num2, font_size = 30).next_to(question_ones, DOWN)
+        # self.play(Write(ans_ones))
+
+    def scene3(self, fname, lname):
+
         TEXT_FONT_SIZE = 30
         NUM_FONT_SIZE = 100
-        num1 = "2"
-        num2 = "5"
-        num1_txt = Text(num1, font_size = NUM_FONT_SIZE)
-        num2_txt = Text(num2, font_size = NUM_FONT_SIZE).shift(RIGHT*0.8)
+        # num1 = fname
+        # num2 = lname
+        num1_txt = Text(fname, font_size = NUM_FONT_SIZE)
+        num2_txt = Text(lname, font_size = NUM_FONT_SIZE).shift(RIGHT*0.8)
         self.add(num1_txt)
         self.add(num2_txt)
         self.play(num1_txt.animate.shift(LEFT), num2_txt.animate.shift(RIGHT))
@@ -765,15 +834,15 @@ class NumPlaces(Scene):
         group.add(l_name_txt, f_name_txt, num1_txt, num2_txt, unit_place, ten_place, ones, tens, vertical_line)
         self.play(group.animate.shift(UP*2))
 
-        question_tens = Text("How many 10's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).shift(DOWN)
-        self.play(Write(question_tens))
-        ans_tens = Text(num1, font_size = 30).next_to(question_tens, DOWN)
+        question_tens = Text(f"How many 10's we have in {fname}{lname} ?", font_size = TEXT_FONT_SIZE, color =  BLUE).shift(DOWN)
+        self.play(Write(question_tens), run_time = 3)
+        ans_tens = Text(fname, font_size = 50).next_to(question_tens, RIGHT*2)
         self.play(Write(ans_tens))
 
-        question_ones = Text("How many 1's we have in 25 ?", font_size = TEXT_FONT_SIZE, color =  BLUE).next_to(ans_tens, DOWN)
-        self.play(Write(question_ones))
-        ans_ones = Text(num2, font_size = 30).next_to(question_ones, DOWN)
-        self.play(Write(ans_ones))
+        question_ones = Text(f"How many 1's we have in {fname}{lname} ?", font_size = TEXT_FONT_SIZE, color =  BLUE).next_to(question_tens, DOWN*2)
+        self.play(Write(question_ones),run_time = 3)
+        ans_ones = Text(lname, font_size = 50).next_to(question_ones, RIGHT*2)
+        self.play(Write(ans_ones))    
 
 class newClass(Scene):
     def constructor(self):
