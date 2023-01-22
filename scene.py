@@ -630,30 +630,23 @@ class NumPlaces(Scene):
         self.play(Write(Text("Title: Five Family", font_size = 70, color = BLUE)))
         self.wait(2)
         self.clear()
-        story_txt_1 = Text("Once upon a time there was a boy.", font_size = 25, color = ORANGE)
-        story_txt_2 = Text("On his first day of school, his teacher asked him his name.", font_size = 25, color = ORANGE)
-        story_txt_3 = Text("'My name is Twenty Five.' He said.",font_size = 25, color = ORANGE)
-        story_txt_4 = Text("'That's an excellent name', Teacher said.",font_size = 25, color = ORANGE)
-        story_txt_5 = Text("Yes, everybody says so. My First name is Twenty and Last name is Five.",font_size = 25, color = ORANGE)
-        story_txt_6 = Text("My Dad's name is Thirty Five and Grand Dad's name is Forty Five. We are from Five Family.",font_size = 25, color = ORANGE)
+        
+        ###### STORY PART #######
+        # story_txt_1 = Text("Once upon a time there was a boy.", font_size = 25, color = ORANGE)
+        # story_txt_2 = Text("On his first day of school, his teacher asked him his name.", font_size = 25, color = ORANGE)
+        # story_txt_3 = Text("'My name is Twenty Five.' He said.",font_size = 25, color = ORANGE)
+        # story_txt_4 = Text("'That's an excellent name', Teacher said.",font_size = 25, color = ORANGE)
+        # story_txt_5 = Text("Yes, everybody says so. My First name is Twenty and Last name is Five.",font_size = 25, color = ORANGE)
+        # story_txt_6 = Text("My Dad's name is Thirty Five and Grand Dad's name is Forty Five. We are from Five Family.",font_size = 25, color = ORANGE)
 
-        self.add(story_txt_1, story_txt_2, story_txt_3, story_txt_4, story_txt_5, story_txt_6)
+        # self.add(story_txt_1, story_txt_2, story_txt_3, story_txt_4, story_txt_5, story_txt_6)
 
-        for i,mobj in enumerate(self.mobjects):
-            mobj.shift(DOWN*(i-3))
-
-        # for idx, text in enumerate([story_txt_1, story_txt_2, story_txt_3, story_txt_4, story_txt_5, story_txt_6]):
-        #     self.play(Write(Text(text, font_size = 25, color = ORANGE).move_to(UP * (3-idx))), run_time =5)
+        # for i,mobj in enumerate(self.mobjects):
+        #     mobj.shift(DOWN*(i-3))
 
 
-        # num1_txt = Text("2", font_size = 70, color=BLUE).move_to(DOWN*3)
-        # num2_txt = Text("5", font_size = 70, color=BLUE).next_to(num1_txt, RIGHT * 0.8)
-        # self.add(num1_txt)
-        # self.add(num2_txt)
-        # self.play(Write(num1_txt), Write(num2_txt))
-
-        self.wait(10)
-        self.clear()
+        # self.wait(10)
+        # self.clear()
 
         ####### SCENE 2 #########
         f_name_dad = "3"
@@ -670,20 +663,20 @@ class NumPlaces(Scene):
         self.add(Text("On Number Line", font_size=30, color=ORANGE).shift(UP*2))
 
         boy_group = VGroup()
-        boy_group.add(f_name_boy_txt, l_name_txt.next_to(f_name_boy_txt, RIGHT*0.2),Text("Boy",font_size = 20, color=ORANGE).next_to(f_name_boy_txt, DOWN).shift(RIGHT*.15), )
+        boy_group.add(f_name_boy_txt, l_name_txt.next_to(f_name_boy_txt, RIGHT*0.2),Text("Boy",font_size = 20, color=ORANGE).next_to(f_name_boy_txt, DOWN).shift(RIGHT*.15), ).shift(LEFT*4)
 
-        self.play(boy_group.animate.shift(LEFT*4))
+        self.play(Create(boy_group))
 
 
         dad_group = VGroup()
         dad_group.add(f_name_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_dad_txt, RIGHT*0.2),Text("Dad",font_size = 20, color=ORANGE).next_to(f_name_dad_txt, DOWN).shift(RIGHT*.15), )
 
-        self.add(dad_group)
+        self.play(Create(dad_group))
 
         grand_dad_group = VGroup()
         grand_dad_group.add(f_name_grand_dad_txt, Text('5',font_size = 30, color=BLUE).next_to(f_name_grand_dad_txt, RIGHT*0.2),Text("Grand Dad",font_size = 20, color=ORANGE).next_to(f_name_grand_dad_txt, DOWN).shift(RIGHT*.15), )
-
-        self.play(grand_dad_group.animate.shift(RIGHT*4))
+        grand_dad_group.shift(RIGHT*4)
+        self.play(Create(grand_dad_group))
 
         family_group = VGroup()
         family_group.add(boy_group, dad_group, grand_dad_group)
@@ -705,26 +698,26 @@ class NumPlaces(Scene):
         twenty = Text("Twenty", font_size = 20, color = ORANGE)
         five = Text("Five", font_size = 20, color = BLUE).next_to(twenty, RIGHT*.5).shift(UP*0.03)
         twenty_five = VGroup()
-        twenty_five.add(twenty, five)
+        twenty_five.add(twenty, five).next_to(numLine.number_to_point(25), DOWN*4)
 
         self.play(boy_group.animate.next_to(numLine.number_to_point(25), UP))
-        self.play(twenty_five.animate.next_to(numLine.number_to_point(25), DOWN*4))
+        self.play(Create(twenty_five))
 
         thirty = Text("Thirty", font_size = 20, color = ORANGE)
         five = Text("Five", font_size = 20, color = BLUE).next_to(thirty, RIGHT*.5).shift(UP*0.03)
         thirty_five = VGroup()
-        thirty_five.add(thirty, five)
+        thirty_five.add(thirty, five).next_to(numLine.number_to_point(35), DOWN*4)
 
         self.play(dad_group.animate.next_to(numLine.number_to_point(35), UP))
-        self.play(thirty_five.animate.next_to(numLine.number_to_point(35), DOWN*4))
+        self.play(Create(thirty_five))
 
         fourty = Text("Fourty", font_size = 20, color = ORANGE)
         five = Text("Five", font_size = 20, color = BLUE).next_to(fourty, RIGHT*.5).shift(UP*0.03)
         fourty_five = VGroup()
-        fourty_five.add(fourty, five)
+        fourty_five.add(fourty, five).next_to(numLine.number_to_point(45), DOWN*4)
 
         self.play(grand_dad_group.animate.next_to(numLine.number_to_point(45), UP))
-        self.play(fourty_five.animate.next_to(numLine.number_to_point(45), DOWN*4))
+        self.play(Create(fourty_five))
 
 
         # boy = Text("25", font_size = 30, color=BLUE).next_to(dad, LEFT)
@@ -755,7 +748,16 @@ class NumPlaces(Scene):
 
         ####### SCENE 3 #########
 
+        self.scene3("2", "5")
+        self.wait(5)
+        self.clear()
+
         self.scene3("3", "5")
+
+        self.wait(5)
+        self.clear()
+
+        self.scene3("4", "5")
         # TEXT_FONT_SIZE = 30
         # NUM_FONT_SIZE = 100
         # num1 = "2"
