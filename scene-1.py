@@ -1,5 +1,6 @@
 '''
 Code for creating 10 frames using chat GPT
+Animation is still pending
 '''
 
 from manim import *
